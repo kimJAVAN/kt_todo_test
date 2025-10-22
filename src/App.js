@@ -1,7 +1,27 @@
 import React, { useState } from 'react';
 import './App.css';
+import AdvancedTodoApp from './AdvancedTodoApp';
 
 function App() {
+  const [showAdvanced, setShowAdvanced] = useState(false);
+
+  if (showAdvanced) {
+    return (
+      <div className="App">
+        <div className="app-switcher">
+          <button 
+            onClick={() => setShowAdvanced(false)}
+            className="switch-btn"
+          >
+            ← 기본 Todo로 돌아가기
+          </button>
+        </div>
+        <AdvancedTodoApp />
+      </div>
+    );
+  }
+
+  // 기존 기본 Todo 앱
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -33,7 +53,16 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Todo App</h1>
+      <div className="app-switcher">
+        <button 
+          onClick={() => setShowAdvanced(true)}
+          className="switch-btn advanced"
+        >
+          🚀 고급 Todo 앱 사용하기
+        </button>
+      </div>
+      
+      <h1>기본 Todo App</h1>
       <div className="input-container">
         <input
           type="text"

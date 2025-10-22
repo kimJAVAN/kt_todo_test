@@ -6,8 +6,10 @@ const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo, onCancelEdit }) => {
     text: editingTodo?.text || '',
     priority: editingTodo?.priority || 'none',
     category: editingTodo?.category || 'none',
-    dueDate: editingTodo?.dueDate || ''
+    dueDate: editingTodo?.dueDate || '',
+    tags: editingTodo?.tags || []
   });
+  const [tagInput, setTagInput] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +30,7 @@ const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo, onCancelEdit }) => {
       priority: formData.priority === 'none' ? null : formData.priority,
       category: formData.category === 'none' ? null : formData.category,
       dueDate: formData.dueDate || null,
+      tags: formData.tags,
       createdAt: editingTodo?.createdAt || new Date().toISOString()
     };
 
@@ -42,8 +45,10 @@ const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo, onCancelEdit }) => {
       text: '',
       priority: 'none',
       category: 'none',
-      dueDate: ''
+      dueDate: '',
+      tags: []
     });
+    setTagInput('');
   };
 
   const handleCancel = () => {
@@ -51,9 +56,44 @@ const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo, onCancelEdit }) => {
       text: '',
       priority: 'none',
       category: 'none',
-      dueDate: ''
+      dueDate: '',
+      tags: []
     });
+    setTagInput('');
     if (onCancelEdit) onCancelEdit();
+  };
+
+  // 태그 추가
+  const addTag = () => {
+    const tag = tagInput.trim();
+    if (tag && !formData.tags.includes(tag)) {
+      setFormData(prev => ({
+        ...prev,
+        tags: [...prev.tags, tag]
+      }));
+      setTagInput('');
+    }
+  };
+
+  // 태그 제거
+  const removeTag = (tagToRemove) => {
+    setFormData(prev => ({
+      ...prev,
+      tags: prev.tags.filter(tag => tag !== tagToRemove)
+    }));
+  };
+
+  // 태그 색상 생성
+  const getTagColor = (tag) => {
+    const colors = [
+      '#e74c3c', '#3498db', '#2ecc71', '#f39c12', 
+      '#9b59b6', '#1abc9c', '#e67e22', '#34495e'
+    ];
+    const hash = tag.split('').reduce((a, b) => {
+      a = ((a << 5) - a) + b.charCodeAt(0);
+      return a & a;
+    }, 0);
+    return colors[Math.abs(hash) % colors.length];
   };
 
   return (
@@ -121,6 +161,52 @@ const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo, onCancelEdit }) => {
           onChange={handleInputChange}
           className="form-input"
         />
+      </div>
+
+      <div className="form-group">
+        <label>태그</label>
+        <div className="tag-input-container">
+          <input
+            type="text"
+            value={tagInput}
+            onChange={(e) => setTagInput(e.target.value)}
+            placeholder="태그를 입력하고 Enter를 누르세요"
+            className="form-input"
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag();
+              }
+            }}
+          />
+          <button
+            type="button"
+            onClick={addTag}
+            className="add-tag-btn"
+          >
+            추가
+          </button>
+        </div>
+        {formData.tags.length > 0 && (
+          <div className="tag-list">
+            {formData.tags.map(tag => (
+              <span
+                key={tag}
+                className="tag-item"
+                style={{ backgroundColor: getTagColor(tag) }}
+              >
+                #{tag}
+                <button
+                  type="button"
+                  onClick={() => removeTag(tag)}
+                  className="remove-tag-btn"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
       
       <div className="form-actions">

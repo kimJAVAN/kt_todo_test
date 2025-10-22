@@ -76,6 +76,21 @@
   border-radius: 12px;
 }
 
+.todo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.todo-tag {
+  font-size: 10px;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
 .todo-actions {
   display: flex;
   align-items: center;

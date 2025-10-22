@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
 import AdvancedTodoApp from './AdvancedTodoApp';
+import SimpleAdvancedTodo from './SimpleAdvancedTodo';
 
 function App() {
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [useSimpleVersion, setUseSimpleVersion] = useState(true);
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
   if (showAdvanced) {
     return (
@@ -15,15 +19,18 @@ function App() {
           >
             ← 기본 Todo로 돌아가기
           </button>
+          <button 
+            onClick={() => setUseSimpleVersion(!useSimpleVersion)}
+            className="switch-btn"
+            style={{ marginLeft: '10px' }}
+          >
+            {useSimpleVersion ? '고급 버전' : '간단 버전'}
+          </button>
         </div>
-        <AdvancedTodoApp />
+        {useSimpleVersion ? <SimpleAdvancedTodo /> : <AdvancedTodoApp />}
       </div>
     );
   }
-
-  // 기존 기본 Todo 앱
-  const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);

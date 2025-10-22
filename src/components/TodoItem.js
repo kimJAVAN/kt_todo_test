@@ -28,6 +28,18 @@ const TodoItem = ({
     }
   };
 
+  const getTagColor = (tag) => {
+    const colors = [
+      '#e74c3c', '#3498db', '#2ecc71', '#f39c12', 
+      '#9b59b6', '#1abc9c', '#e67e22', '#34495e'
+    ];
+    const hash = tag.split('').reduce((a, b) => {
+      a = ((a << 5) - a) + b.charCodeAt(0);
+      return a & a;
+    }, 0);
+    return colors[Math.abs(hash) % colors.length];
+  };
+
   return (
     <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>
       <div className="todo-content">
@@ -69,6 +81,20 @@ const TodoItem = ({
             <span className="due-date">
               📅 {new Date(todo.dueDate).toLocaleDateString()}
             </span>
+          )}
+          
+          {todo.tags && todo.tags.length > 0 && (
+            <div className="todo-tags">
+              {todo.tags.map(tag => (
+                <span 
+                  key={tag}
+                  className="todo-tag"
+                  style={{ backgroundColor: getTagColor(tag) }}
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
           )}
         </div>
       </div>

@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# 커밋 메시지 규칙
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+커밋 메시지는 다음 형식을 따릅니다.
 
-## Available Scripts
+[타입]_MM/DD - 변경 내용
 
-In the project directory, you can run:
+yaml
+코드 복사
 
-### `npm start`
+### 규칙
+1. **타입 `[타입]`**  
+   - 커밋 목적을 명시  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **날짜 `_MM/DD`**  
+   - 커밋한 날짜 표기  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **변경 내용 `- 메시지`**  
+   - **명사형**으로 끝내기  
+   - 변경 내용을 구체적으로 작성  
 
-### `npm test`
+4. **작업 단위 커밋**  
+   - 한 커밋에는 한 가지 작업/기능만 포함  
+   - 작업한 기능이 여러 개라면 **커밋도 나눠서**, **작업한 파일도 기능별로 나눠서 올리기**  
+   - 이렇게 하면 히스토리 관리와 코드 리뷰가 쉬워짐  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+### 타입별 설명
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| 타입     | 의미                                     | 예시 커밋 메시지                     |
+|----------|----------------------------------------|-----------------------------------|
+| feat     | 새로운 기능 추가                        | `[feat]_10/22 - 알람 기능 추가`    |
+| fix      | 버그 수정                                | `[fix]_10/23 - 로그인 오류 수정`   |
+| docs     | 문서 수정                                | `[docs]_10/24 - README 설치 방법 업데이트` |
+| style    | 코드 포맷팅, 세미콜론 누락 등 기능 변화 없음 | `[style]_10/25 - 버튼 마진 통일`  |
+| refactor | 코드 구조 개선, 기능 변화 없음            | `[refactor]_10/26 - 사용자 데이터 처리 구조 개선` |
+| perf     | 성능 개선                                | `[perf]_10/27 - 이미지 로딩 속도 개선` |
+| test     | 테스트 코드 추가/수정                     | `[test]_10/28 - 로그인 유닛 테스트 추가` |
+| chore    | 빌드, 패키지, 잡일 등                     | `[chore]_10/29 - 패키지 버전 업데이트` |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 예시: 작업 단위 커밋
 
-### `npm run eject`
+- 로그인 기능 개발 중 UI, API, 테스트 각각 별도로 커밋
+[feat]_10/22 - 로그인 UI 추가
+[feat]_10/22 - 로그인 API 연결
+[test]_10/22 - 로그인 유닛 테스트 작성
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+markdown
+코드 복사
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 이렇게 커밋을 나누면 코드 리뷰, 히스토리 확인, 롤백이 훨씬 용이
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 🔹 포인트  
+> - 메시지는 항상 **명사형**으로 끝내기  
+> - **작업 단위별 커밋**으로 분리  
+> - 타입과 날짜는 **정해진 형식**으로 작성  
+> - 일관성 있는 커밋 메시지로 히스토리 관리와 협업 효율 향상

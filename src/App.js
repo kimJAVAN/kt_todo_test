@@ -46,7 +46,14 @@ function App() {
       <ul>
         {todos.map((todo, index) => (
           <li key={index} className={todo.completed ? 'completed' : ''}>
-            <span onClick={() => handleToggleTodo(index)}>{todo.text}</span>
+            <div>
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => handleToggleTodo(index)}
+              />
+              <span>{todo.text}</span>
+            </div>
             <button onClick={() => handleDeleteTodo(index)}>Delete</button>
           </li>
         ))}

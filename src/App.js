@@ -128,7 +128,7 @@ function App() {
           <h2>{getMonthName()}</h2>
           <button onClick={handleNextMonth}>→</button>
         </div>
-        
+        {/* 요일 */}
         <div className="calendar-weekdays">
           <div>일</div>
           <div>월</div>
